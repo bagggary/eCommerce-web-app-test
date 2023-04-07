@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {  auth , createUserDocumentFromAuth, signInWithGooglePopup , SignAuthUserWithEmailAndPassword} from '../../util/firebase/firebase.util'
 import FormInput from '../form-input/form-input.component'
 import Button from '../button/button.component'
+// import { userContext } from '../../contexts/user.context'
 
 
 const defaultFormFields = {
@@ -11,13 +12,16 @@ const defaultFormFields = {
 
 const SignInAccount = () => {
 
-  const SignInWithGoogle =async () =>  {
-    const {user} =  await signInWithGooglePopup();
-     await createUserDocumentFromAuth(user)
+  const SignInWithGoogle = async () =>  {
+      await signInWithGooglePopup();
   }
 
   const [formFields , setFormFields] = useState(defaultFormFields)
   const {email , password } = formFields
+
+  // const {setCurrentUser} = useContext(userContext)
+
+  
 
   const resetInputFields = ()=>{
     setFormFields(defaultFormFields)
@@ -26,8 +30,7 @@ const SignInAccount = () => {
   const handleSumbit = async (event) => {
     event.preventDefault()
     try{
-      const response = await SignAuthUserWithEmailAndPassword(email , password)
-console.log(response)
+      const {user} = await SignAuthUserWithEmailAndPassword(email , password)
       resetInputFields();
     } catch(error){
       console.log(error.message)

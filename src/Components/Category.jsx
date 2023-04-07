@@ -1,9 +1,11 @@
 import React from 'react'
-import { require } from 'react'
+import { Route, useNavigate  } from 'react-router-dom'
 
 function Category({ category }) {
+  const navigate = useNavigate()
+  const onNavigateHandler = () => navigate(category.route)
   return (
-    <div className='group min-w-[30%] first:mr-[7.5px] last:ml-[7.5px] h-[240px] flex flex-auto items-center justify-center border border-black border-solid overflow-hidden mt-0 mb-2 mx-[15px] hover:cursor-pointer'>
+    <div onClick={onNavigateHandler} className='group min-w-[30%] first:mr-[7.5px] last:ml-[7.5px] h-[240px] flex flex-auto items-center justify-center border border-black border-solid overflow-hidden mt-0 mb-2 mx-[15px] hover:cursor-pointer'>
       <div
         className='group-hover:scale-110 group-hover:transition-transform group-hover:duration-[6s] group-hover:ease-linear w-full h-full bg-cover bg-center'
         style={{
