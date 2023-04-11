@@ -1,9 +1,13 @@
-import { useContext } from "react";
-import { CartContext } from "../../contexts/cart.context";
+
+
+import { useDispatch, useSelector } from "react-redux";
+import { clearItemFromCart , addCartItems , removeItemToCart } from "../../store/cart/cart.action";
+import { selectCartItems } from "../../store/cart/cart.selector";
 
 
 const CheckoutItem = ({cartItem})=> {
-  const {clearItemFromCart , addCartItems , removeItemToCart } = useContext(CartContext)
+  const cartItems = useSelector(selectCartItems)
+  const dispatch = useDispatch()
 
   const {name , imageUrl , price , quantity } = cartItem
 return (
@@ -13,12 +17,12 @@ return (
     </div>
     <span className="w-[23%]">{name}</span>
     <span className="w-[23%] flex">
-           <div className=" cursor-pointer" onClick={()=>removeItemToCart(cartItem)}>&#10094;</div>
+           <div className=" cursor-pointer" onClick={()=>dispatch(removeItemToCart(cartItems, cartItem))}>&#10094;</div>
            <span className="mx-[10px]">{quantity}</span>  
-           <div className=" cursor-pointer" onClick={()=>addCartItems(cartItem)}>&#10095;</div>
+           <div className=" cursor-pointer" onClick={()=> dispatch(addCartItems(cartItems, cartItem))}>&#10095;</div>
       </span>
     <span className="w-[23%]">{price}</span>
-    <div className=" pl-3 cursor-pointer " onClick={()=>clearItemFromCart(cartItem)}>&#10005;</div>
+    <div className=" pl-3 cursor-pointer " onClick={()=>dispatch(clearItemFromCart(cartItems, cartItem))}>&#10005;</div>
   </div>
 )
 }
