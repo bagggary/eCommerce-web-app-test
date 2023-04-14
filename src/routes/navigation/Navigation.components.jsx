@@ -1,17 +1,23 @@
-import React ,{ useContext } from 'react'
+import React  from 'react'
 import { Outlet , Link} from 'react-router-dom'
-import { userContext } from '../../contexts/user.context'
 import { SignOutUser } from '../../util/firebase/firebase.util'
 import CardIcon from '../../Components/cart/cart.component'
 import CartDropdown from '../../Components/cardDropdow/cardDropdown.component'
-import { CartContext } from '../../contexts/cart.context'
+import { useSelector } from 'react-redux'
+import { selectIsCartOpen } from '../../store/cart/cart.selector'
+import { useDispatch } from 'react-redux'
+
 
 import {ReactComponent as CrwnLogo} from '../../assets/crown.svg'
+import { signOutStart } from '../../store/user/user.action'
 
 
 const Navigation = ()=> {
-  const {currentUser } = useContext(userContext)
-  const {isCartOpen} = useContext(CartContext)
+  const dispatch = useDispatch()
+  // const currentUser = useSelector((state) => state.user.currentUser)
+  const currentUser = useSelector((state) => state.currentUser )
+  const isCartOpen = useSelector(selectIsCartOpen)
+  const handleSignOut = () => dispatch(signOutStart())
 
   return (
     <React.Fragment>
@@ -23,7 +29,7 @@ const Navigation = ()=> {
           <Link className='px-[15px] py-2.5 cursor-pointer' to = "/shop"> SHOP </Link>
           <Link className='px-[15px] py-2.5 cursor-pointer'> CONTACT </Link>
           {currentUser ? (
-            <span className='px-[15px] py-2.5 cursor-pointer' onClick={SignOutUser} > SIGN OUT</span>
+            <span className='px-[15px] py-2.5 cursor-pointer' onClick={handleSignOut} > SIGN OUT</span>
           ) : (
             <Link className='px-[15px] py-2.5 cursor-pointer' to = "/signIn"> SIGN IN </Link>
           )}

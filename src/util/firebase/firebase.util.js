@@ -99,3 +99,16 @@ export const SignOutUser = async () => {
 };
 export const onAuthStateChangesListener = (Callback) =>
   onAuthStateChanged(auth, Callback);
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+};
