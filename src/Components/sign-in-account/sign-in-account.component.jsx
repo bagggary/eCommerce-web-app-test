@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import {  auth , createUserDocumentFromAuth, signInWithGooglePopup , SignAuthUserWithEmailAndPassword} from '../../util/firebase/firebase.util'
 import FormInput from '../form-input/form-input.component'
 import Button from '../button/button.component'
+import { useDispatch } from 'react-redux'
 // import { userContext } from '../../contexts/user.context'
+import { googleSignInStart , emailSignInStart} from '../../store/user/user.action'
 
 
 const defaultFormFields = {
@@ -11,9 +12,10 @@ const defaultFormFields = {
 }
 
 const SignInAccount = () => {
+  const dispatch = useDispatch()
 
   const SignInWithGoogle = async () =>  {
-      await signInWithGooglePopup();
+    dispatch(googleSignInStart())
   }
 
   const [formFields , setFormFields] = useState(defaultFormFields)
@@ -30,7 +32,7 @@ const SignInAccount = () => {
   const handleSumbit = async (event) => {
     event.preventDefault()
     try{
-      const {user} = await SignAuthUserWithEmailAndPassword(email , password)
+    dispatch(emailSignInStart(email , password))
       resetInputFields();
     } catch(error){
       console.log(error.message)

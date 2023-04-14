@@ -1,4 +1,4 @@
-const  BUTTON_TYPE_CLASSES = {
+export const  BUTTON_TYPE_CLASSES = {
   google : ' bg-[#4285f4] text-white hover:bg-[#357ae8] border-none  ',
   inverted : 'bg-black text-white border border-solid border-black hover:bg-white hover:text-black ' ,
 }
