@@ -10,11 +10,6 @@ import {
 
 import { CATEGORIES_ACTION_TYPE } from "./category.types";
 
-// export const fetchCategoriesAsync = () => async (dispatch) => {
-//   dispatch(fetchCategoriesStart());
-
-// };
-
 export function* fetchCategoriesAsync() {
   try {
     const categoriesArray = yield call(getCategoriesAndDocuments, "categories");
