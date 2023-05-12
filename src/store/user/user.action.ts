@@ -3,6 +3,7 @@ import { withMatcher , Action , ActionWithPayload } from "../../util/reducer/red
 import { UserData } from "../../util/firebase/firebase.util";
 import { AdditionalInformation } from "../../util/firebase/firebase.util";
 
+
 export type EmailSignIn  = {
   email : string ,
   password : string 
